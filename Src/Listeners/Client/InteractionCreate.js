@@ -16,7 +16,7 @@ module.exports = class InteractionCreate extends Event {
       } catch (error) {
         return this.client.logger.error(error);
       }
-    } else if (interaction.isSelectMenu()) {
+    } else if (interaction.isStringSelectMenu()) {
       const { menus } = this.client;
       let selectMenuName;
       if (menus.get(interaction.customId)) selectMenuName = interaction.customId;
