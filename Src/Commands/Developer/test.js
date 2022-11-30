@@ -8,11 +8,10 @@ module.exports = class TestDev extends Command {
       },
       category: 'Developer',
       permissions: {
-        dev: true
+        dev: true,
       },
     });
   }
 
-  async run(client, ctx) {
-  }
+  async run(client, ctx) {}
 };

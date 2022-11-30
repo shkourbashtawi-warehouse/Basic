@@ -8,7 +8,7 @@ module.exports = class PingDevNormal extends Command {
       },
       category: 'Developer',
       permissions: {
-        dev: true
+        dev: true,
       },
     });
   }

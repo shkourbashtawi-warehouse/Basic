@@ -7,5 +7,8 @@ module.exports = class Ready extends Event {
 
   async run() {
     this.client.logger.ready('%s is online', this.client.user.username);
+    this.client.user.setActivity('Basic Bot', {
+      type: this.client.Discord.ActivityType.Watching,
+    });
   }
 };
