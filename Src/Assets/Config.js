@@ -9,9 +9,7 @@ module.exports = {
     Prefix: '',
     Devs: ['', ''],
   },
-  Script: {
-    WebhookError: new Discord.WebhookClient({ url: '' }),
-  },
+
   Color: {
     basicColor: '#871e2e',
     DecimalColor: '8855086',

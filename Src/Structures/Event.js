@@ -11,11 +11,6 @@ module.exports = class Event {
     try {
       await this.run(...args);
     } catch (error) {
-      this.client.config.Script.WebhookError.send({
-        threadId: '1033120238960660492',
-        username: 'ErrorManager : Basic Bot',
-        content: `\`\`\`js\n${error.stack}\`\`\``,
-      });
       this.client.logger.error(error);
     }
   }

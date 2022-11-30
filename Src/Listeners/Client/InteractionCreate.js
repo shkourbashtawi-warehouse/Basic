@@ -14,11 +14,6 @@ module.exports = class InteractionCreate extends Event {
       try {
         await button.run(this.client, interaction);
       } catch (error) {
-        this.client.config.Script.WebhookError.send({
-          threadId: '1033120238960660492',
-          username: 'ErrorManager : Basic Bot',
-          content: `\`\`\`js\n${error.stack}\`\`\``,
-        });
         return this.client.logger.error(error);
       }
     } else if (interaction.isSelectMenu()) {
@@ -31,31 +26,17 @@ module.exports = class InteractionCreate extends Event {
       try {
         await menu.run(this.client, interaction);
       } catch (error) {
-        this.client.config.Script.WebhookError.send({
-          threadId: '1033120238960660492',
-          username: 'ErrorManager : Basic Bot',
-          content: `\`\`\`js\n${error.stack}\`\`\``,
-        });
         return this.client.logger.error(error);
       }
     } else if (interaction.isModalSubmit()) {
       const { modals } = this.client;
       const modal = modals.get(interaction.customId);
       if (!modal?.id) {
-        this.client.config.Script.WebhookError.send({
-          threadId: '1033120238960660492',
-          username: 'ErrorManager : Basic Bot',
-          content: `${interaction.customId} modal was not found`,
-        });
+        return
       }
       try {
         await modal.run(this.client, interaction);
       } catch (error) {
-        this.client.config.Script.WebhookError.send({
-          threadId: '1033120238960660492',
-          username: 'ErrorManager : Basic Bot',
-          content: `\`\`\`js\n${error.stack}\`\`\``,
-        });
         return this.client.logger.error(error);
       }
     } else if (interaction.isAutocomplete()) {
@@ -65,11 +46,6 @@ module.exports = class InteractionCreate extends Event {
       try {
         await command.autocomplete(this.client, interaction);
       } catch (error) {
-        this.client.config.Script.WebhookError.send({
-          threadId: '1033120238960660492',
-          username: 'ErrorManager : Basic Bot',
-          content: `\`\`\`js\n${error.stack}\`\`\``,
-        });
         return this.client.logger.error(error);
       }
     } else if (interaction.isChatInputCommand()) {
@@ -175,11 +151,6 @@ module.exports = class InteractionCreate extends Event {
       try {
         await cmd.run(this.client, ctx, ctx.args);
       } catch (error) {
-        this.client.config.Script.WebhookError.send({
-          threadId: '1033120238960660492',
-          username: 'ErrorManager : Basic Bot',
-          content: `\`\`\`js\n${error.stack}\`\`\``,
-        });
         this.client.logger.error(error);
         const SupportLink = new this.client.Discord.ActionRowBuilder().addComponents([
           new this.client.Discord.ButtonBuilder()
