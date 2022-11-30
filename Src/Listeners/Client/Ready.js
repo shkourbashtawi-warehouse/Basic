@@ -6,6 +6,6 @@ module.exports = class Ready extends Event {
   }
 
   async run() {
-    this.client.logger.ready('%s is online');
+    this.client.logger.ready('%s is online', this.client.user.username);
   }
 };

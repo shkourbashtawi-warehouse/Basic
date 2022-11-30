@@ -32,7 +32,7 @@ module.exports = class InteractionCreate extends Event {
       const { modals } = this.client;
       const modal = modals.get(interaction.customId);
       if (!modal?.id) {
-        return
+        return;
       }
       try {
         await modal.run(this.client, interaction);
