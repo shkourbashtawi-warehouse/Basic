@@ -8,14 +8,7 @@ module.exports = class PingDevNormal extends Command {
       },
       category: 'Developer',
       permissions: {
-        team: [
-          '832540305542742047',
-          '685868171755913293',
-          '913497938129469461',
-          '787956837403197510',
-          '939980483750674512',
-          '575790052152573989',
-        ],
+        dev: true
       },
     });
   }
