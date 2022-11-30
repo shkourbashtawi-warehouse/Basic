@@ -14,7 +14,6 @@ module.exports = class PingDevNormal extends Command {
   }
 
   async run(client, ctx) {
-    if (!this.permissions.team.includes(ctx.user.id)) return;
     const msg = await ctx.sendDeferReply(`Pinging...`);
     return ctx.editMessage(
       `Pong! (Latency: ${msg.createdTimestamp - ctx.createdTimestamp}ms. API Latency: ${Math.round(client.ws.ping)}ms.)`,
