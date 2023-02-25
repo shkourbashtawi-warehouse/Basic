@@ -1,5 +1,4 @@
 require('dotenv').config();
-const Discord = require('discord.js');
 module.exports = {
   Danger: {
     NODE_ENV: process.env.NODE_ENV, //Direct to process.env (iam will read that)
