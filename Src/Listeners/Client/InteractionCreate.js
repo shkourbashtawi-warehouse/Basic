@@ -85,6 +85,12 @@ module.exports = class InteractionCreate extends Event {
           ephemeral: true,
         });
 
+        const messageHelper = new this.client.messageHelper(this.client, ctx);
+        await messageHelper.createBot();
+        await messageHelper.createServer();
+        await messageHelper.createUser();
+        ctx.messageHelper = messageHelper;
+
       if (cmd.permissions.permission === 'dev' && !this.client.config.Danger.Devs.includes(interaction.user.id)) return;
 
       const permissionHelpMessage = `If you need help configuring the correct permissions for the bot join the support server.`;
