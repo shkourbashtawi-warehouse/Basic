@@ -2,12 +2,13 @@ require('dotenv').config();
 const Discord = require('discord.js');
 module.exports = {
   Danger: {
-    NODE_ENV: 'production',
-    Token: '',
-    ClientId: '',
-    GuildId: '',
-    Prefix: '',
-    Devs: ['', ''],
+    NODE_ENV: process.env.NODE_ENV, //Direct to process.env (iam will read that)
+    Token: process.env.Token, //Direct to process.env (iam will read that)
+    MongoDB: process.env.MongoDB, //Direct to process.env (iam will read that)
+    ClientId: process.env.ClientId, //Direct to process.env (iam will read that)
+    GuildId: process.env.GuildId, //Direct to process.env (iam will read that)
+    Prefix: process.env.Prefix, //Direct to process.env (For Premuim)
+    Devs: ['685868171755913293', '685868171755913293'],
   },
 
   Color: {
