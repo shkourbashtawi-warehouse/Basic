@@ -13,7 +13,7 @@ module.exports = class InteractionCreate extends Event {
       if (!button) return;
       try {
         const messageHelper = new this.client.messageHelper(this.client);
-        await messageHelper.createUserWith(interaction.usser.id);
+        await messageHelper.createUserWith(interaction.user.id);
         await messageHelper.createServerWith(interaction.guild.id);
         await button.run(this.client, interaction);
       } catch (error) {
@@ -28,7 +28,7 @@ module.exports = class InteractionCreate extends Event {
       if (!menu) return;
       try {
         const messageHelper = new this.client.messageHelper(this.client);
-        await messageHelper.createUserWith(interaction.usser.id);
+        await messageHelper.createUserWith(interaction.user.id);
         await messageHelper.createServerWith(interaction.guild.id);
         await menu.run(this.client, interaction);
       } catch (error) {
@@ -42,7 +42,7 @@ module.exports = class InteractionCreate extends Event {
       }
       try {
         const messageHelper = new this.client.messageHelper(this.client);
-        await messageHelper.createUserWith(interaction.usser.id);
+        await messageHelper.createUserWith(interaction.user.id);
         await messageHelper.createServerWith(interaction.guild.id);
         await modal.run(this.client, interaction);
       } catch (error) {
@@ -54,7 +54,7 @@ module.exports = class InteractionCreate extends Event {
       if (!command) return;
       try {
         const messageHelper = new this.client.messageHelper(this.client);
-        await messageHelper.createUserWith(interaction.usser.id);
+        await messageHelper.createUserWith(interaction.user.id);
         await messageHelper.createServerWith(interaction.guild.id);
         await command.autocomplete(this.client, interaction);
       } catch (error) {
@@ -170,12 +170,6 @@ module.exports = class InteractionCreate extends Event {
         await cmd.run(this.client, ctx, ctx.args);
       } catch (error) {
         this.client.logger.error(error);
-        const SupportLink = new this.client.Discord.ActionRowBuilder().addComponents([
-          new this.client.Discord.ButtonBuilder()
-            .setLabel('Join the Support Server')
-            .setStyle(this.client.Discord.ButtonStyle.Link)
-            .setURL(this.client.config.Bot.ServerSupport),
-        ]);
         const ErrorEmbed = new this.client.Discord.EmbedBuilder()
           .setAuthor({
             name: this.client.user.username + ' Error',
@@ -189,7 +183,7 @@ module.exports = class InteractionCreate extends Event {
             iconURL: this.client.user.displayAvatarURL({ forceStatic: true }),
           })
           .setTimestamp();
-        await interaction.reply({ embeds: [ErrorEmbed], components: [SupportLink], ephemeral: true });
+        await interaction.reply({ embeds: [ErrorEmbed], ephemeral: true });
       }
     }
   }
