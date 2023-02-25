@@ -33,16 +33,16 @@ module.exports = class MessageHelper {
     }
   }
 
-  async createServerWith(ServerId) {
-    this.server = await Guild.findOne({
-      guildId: ServerId,
+  async createServerWith(GuildId) {
+    this.guild = await Guild.findOne({
+      guildId: GuildId,
     });
-    if (!this.server) {
-      const newServer = new Guild({
-        guildId: ServerId,
+    if (!this.guild) {
+      const newGuild = new Guild({
+        guildId: GuildId,
       });
-      await newServer.save();
-      this.server = newServer;
+      await newGuild.save();
+      this.guild = newGuild;
     }
   }
 

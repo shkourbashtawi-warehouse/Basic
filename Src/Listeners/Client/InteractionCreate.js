@@ -12,6 +12,9 @@ module.exports = class InteractionCreate extends Event {
       const button = buttons.get(interaction.customId);
       if (!button) return;
       try {
+        const messageHelper = new this.client.messageHelper(this.client);
+        await messageHelper.createUserWith(interaction.usser.id);
+        await messageHelper.createServerWith(interaction.guild.id);
         await button.run(this.client, interaction);
       } catch (error) {
         return this.client.logger.error(error);
@@ -24,6 +27,9 @@ module.exports = class InteractionCreate extends Event {
       const menu = menus.get(selectMenuName);
       if (!menu) return;
       try {
+        const messageHelper = new this.client.messageHelper(this.client);
+        await messageHelper.createUserWith(interaction.usser.id);
+        await messageHelper.createServerWith(interaction.guild.id);
         await menu.run(this.client, interaction);
       } catch (error) {
         return this.client.logger.error(error);
@@ -35,6 +41,9 @@ module.exports = class InteractionCreate extends Event {
         return;
       }
       try {
+        const messageHelper = new this.client.messageHelper(this.client);
+        await messageHelper.createUserWith(interaction.usser.id);
+        await messageHelper.createServerWith(interaction.guild.id);
         await modal.run(this.client, interaction);
       } catch (error) {
         return this.client.logger.error(error);
@@ -44,6 +53,9 @@ module.exports = class InteractionCreate extends Event {
       const command = commands.get(interaction.commandName);
       if (!command) return;
       try {
+        const messageHelper = new this.client.messageHelper(this.client);
+        await messageHelper.createUserWith(interaction.usser.id);
+        await messageHelper.createServerWith(interaction.guild.id);
         await command.autocomplete(this.client, interaction);
       } catch (error) {
         return this.client.logger.error(error);
@@ -85,11 +97,11 @@ module.exports = class InteractionCreate extends Event {
           ephemeral: true,
         });
 
-        const messageHelper = new this.client.messageHelper(this.client, ctx);
-        await messageHelper.createBot();
-        await messageHelper.createServer();
-        await messageHelper.createUser();
-        ctx.messageHelper = messageHelper;
+      const messageHelper = new this.client.messageHelper(this.client, ctx);
+      await messageHelper.createBot();
+      await messageHelper.createServer();
+      await messageHelper.createUser();
+      ctx.messageHelper = messageHelper;
 
       if (cmd.permissions.permission === 'dev' && !this.client.config.Danger.Devs.includes(interaction.user.id)) return;
 
