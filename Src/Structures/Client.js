@@ -68,7 +68,6 @@ module.exports = class Client extends Discord.Client {
     this.utils = require('../Utils/Data');
     this.Discord = Discord;
     this.basics = ['931455955013599273', '936580225846902855'];
-    this.Discord = Discord;
   }
 
   loadCommands() {
