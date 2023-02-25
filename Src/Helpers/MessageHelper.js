@@ -1,3 +1,6 @@
+const Bot = require('../Schemas/Bot');
+const Guild = require('../Schemas/Guild');
+const User = require('../Schemas/User');
 module.exports = class MessageHelper {
   constructor(client, ctx) {
     this.client = client;
@@ -6,14 +9,14 @@ module.exports = class MessageHelper {
     this._subcommand = null;
   }
 
-  async createOnix() {
-    this.onix = await Onix.findOne({
-      onixName: 'Onix',
+  async createBot() {
+    this.Bot = await Bot.findOne({
+      BotName: 'Bot',
     });
-    if (!this.onix) {
-      const newOnix = new Onix();
-      await newOnix.save();
-      this.onix = newOnix;
+    if (!this.Bot) {
+      const newBot = new Bot();
+      await newBot.save();
+      this.Bot = newBot;
     }
   }
 
@@ -73,12 +76,6 @@ module.exports = class MessageHelper {
     if (!this.user) return false;
     if (this.user.blacklist == null) this.user.blacklist = false;
     return this.user.blacklist;
-  }
-
-  async isBlacklistedGuild() {
-    if (!this.server) return false;
-    if (this.server.blacklist == null) this.server.blacklist = false;
-    return this.server.blacklist;
   }
 
   async getPrefixFromMessage(rawMessageContent, mentionPrefix) {
@@ -233,77 +230,5 @@ module.exports = class MessageHelper {
         this.ctx.sendEphemeralReply(this.client.error());
       }
     }
-  }
-
-  async paginate(pages, userId, timeout, buttonRow) {
-    if (pages.length < 2) return this.ctx.sendReply({ embeds: pages });
-    let page = 0;
-
-    const buttons = buttonRow
-      ? buttonRow
-      : new this.client.Discord.ActionRowBuilder().addComponents(
-          new this.client.Discord.ButtonBuilder()
-            .setCustomId('backmuch')
-            .setLabel('⏮')
-            .setStyle(this.client.Discord.ButtonStyle.Primary),
-          new this.client.Discord.ButtonBuilder()
-            .setCustomId('back')
-            .setLabel('◀️')
-            .setStyle(this.client.Discord.ButtonStyle.Primary),
-          new this.client.Discord.ButtonBuilder()
-            .setCustomId('next')
-            .setLabel('▶️')
-            .setStyle(this.client.Discord.ButtonStyle.Primary),
-          new this.client.Discord.ButtonBuilder()
-            .setCustomId('nextmuch')
-            .setLabel('⏭')
-            .setStyle(this.client.Discord.ButtonStyle.Primary),
-        );
-
-    const message = await this.ctx.sendReply({
-      embeds: [pages[page]],
-      components: [buttons],
-      fetchReply: true,
-    });
-
-    const filter = () => this.ctx.user.id === userId;
-    const interactionCollector = message.createMessageComponentCollector({
-      filter: filter,
-      componentType: 2,
-      max: pages.length * 2,
-    });
-
-    interactionCollector.on('collect', async (interaction) => {
-      if (interaction.user.id === userId) {
-        if (interaction.component.customId === 'backmuch') {
-          page = 0;
-        }
-        if (interaction.component.customId === 'back') {
-          if (page == 0) page = pages.length - 1;
-          else page--;
-        } else if (interaction.component.customId === 'next') {
-          if (page == pages.length - 1) page = 0;
-          else page++;
-        } else if (interaction.component.customId === 'nextmuch') {
-          page = pages.length - 1;
-        }
-
-        await interaction.update({
-          embeds: [pages[page]],
-        });
-      }
-    });
-
-    interactionCollector.on('end', async () => {
-      await message.edit({ components: [] });
-    });
-
-    setTimeout(
-      async () => {
-        interactionCollector.stop('Timeout');
-        await message.edit({ components: [] });
-      },
-      timeout ? timeout : 300000,
-    );
   }
 };

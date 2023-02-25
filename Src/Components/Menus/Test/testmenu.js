@@ -5,6 +5,5 @@ module.exports = class TestMenu extends Menu {
       id: 'testmenu',
     });
   }
-  async run(client, interaction) {
-  }
+  async run(client, interaction) {}
 };

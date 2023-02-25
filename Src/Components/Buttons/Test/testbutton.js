@@ -5,6 +5,5 @@ module.exports = class TestButton extends Button {
       id: 'testbutton',
     });
   }
-  async run(client, interaction) {
-  }
+  async run(client, interaction) {}
 };

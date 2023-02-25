@@ -5,6 +5,5 @@ module.exports = class TestModal extends Modal {
       id: 'testmodal',
     });
   }
-  async run(client, interaction) {
-  }
+  async run(client, interaction) {}
 };
