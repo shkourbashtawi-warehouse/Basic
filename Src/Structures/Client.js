@@ -17,7 +17,7 @@ module.exports = class Client extends Discord.Client {
       intents: [
         Discord.GatewayIntentBits.DirectMessages,
         Discord.GatewayIntentBits.GuildMembers,
-        Discord.GatewayIntentBits.GuildBans,
+        Discord.GatewayIntentBits.GuildModeration,
         Discord.GatewayIntentBits.Guilds,
         Discord.GatewayIntentBits.MessageContent,
         Discord.GatewayIntentBits.GuildInvites,
@@ -68,6 +68,7 @@ module.exports = class Client extends Discord.Client {
     this.utils = require('../Utils/Data');
     this.Discord = Discord;
     this.basics = ['931455955013599273', '936580225846902855'];
+    this.Discord = Discord;
   }
 
   loadCommands() {
